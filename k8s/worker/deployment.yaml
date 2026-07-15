@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: ai-task-platform
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+        - name: worker
+          image: yourdockerhubusername/ai-task-platform-worker:latest
+          envFrom:
+            - configMapRef:
+                name: app-config
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: MONGO_URI
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          livenessProbe:
+            exec:
+              command: ["python", "-c", "import redis, config; redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT).ping()"]
+            initialDelaySeconds: 15
+            periodSeconds: 30
+          readinessProbe:
+            exec:
+              command: ["python", "-c", "import redis, config; redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT).ping()"]
+            initialDelaySeconds: 10
+            periodSeconds: 15
