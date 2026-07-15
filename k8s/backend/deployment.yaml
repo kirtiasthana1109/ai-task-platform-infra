@@ -16,6 +16,7 @@ spec:
       containers:
         - name: backend
           image: yourdockerhubusername/ai-task-platform-backend:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000
           envFrom:

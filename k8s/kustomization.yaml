@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - configmap.yaml
-  - secret.yaml
   - mongo/statefulset.yaml
   - mongo/service.yaml
   - redis/deployment.yaml
@@ -20,8 +19,11 @@ resources:
 
 images:
   - name: yourdockerhubusername/ai-task-platform-backend
+    newName: ai-task-platform-backend
     newTag: latest
   - name: yourdockerhubusername/ai-task-platform-frontend
+    newName: ai-task-platform-frontend
     newTag: latest
   - name: yourdockerhubusername/ai-task-platform-worker
+    newName: ai-task-platform-worker
     newTag: latest

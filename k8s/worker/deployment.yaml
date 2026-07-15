@@ -16,6 +16,7 @@ spec:
       containers:
         - name: worker
           image: yourdockerhubusername/ai-task-platform-worker:latest
+          imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
                 name: app-config
