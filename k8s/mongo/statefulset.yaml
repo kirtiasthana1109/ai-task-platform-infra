@@ -45,11 +45,13 @@ spec:
               command: ["mongosh", "--eval", "db.adminCommand('ping')"]
             initialDelaySeconds: 20
             periodSeconds: 20
+            timeoutSeconds: 10
           readinessProbe:
             exec:
               command: ["mongosh", "--eval", "db.adminCommand('ping')"]
             initialDelaySeconds: 10
             periodSeconds: 10
+            timeoutSeconds: 10
   volumeClaimTemplates:
     - metadata:
         name: mongo-data

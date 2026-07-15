@@ -38,8 +38,10 @@ spec:
               command: ["python", "-c", "import redis, config; redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT).ping()"]
             initialDelaySeconds: 15
             periodSeconds: 30
+            timeoutSeconds: 10
           readinessProbe:
             exec:
               command: ["python", "-c", "import redis, config; redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT).ping()"]
             initialDelaySeconds: 10
             periodSeconds: 15
+            timeoutSeconds: 10
